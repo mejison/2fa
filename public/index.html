@@ -6,12 +6,25 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="google-signin-client_id" content="15158022160-rssu6ppsmjofa8vhmvjd8qq2ich10050.apps.googleusercontent.com">
   </head>
   <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
     <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <script src="https://apis.google.com/js/platform.js?onload=start" async defer></script>
+    <script>
+      var auth2;
+
+      function start() {
+        gapi.load('auth2', function() {
+          auth2 = gapi.auth2.init({
+            client_id: '15158022160-rssu6ppsmjofa8vhmvjd8qq2ich10050.apps.googleusercontent.com',
+            scope: 'profile email',
+          });
+
+          const event = new CustomEvent("init-google");
+          window.dispatchEvent(event);
+        });
+      }
+    </script>
   </body>
 </html>
